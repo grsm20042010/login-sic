@@ -1,0 +1,14 @@
+# Dependências pesadas (cada colega baixa com npm install)
+node_modules/
+
+# Arquivos de senhas e configurações locais (NUNCA subir!)
+.env
+.env.*
+
+# Arquivos compilados / gerados automaticamente
+dist/
+build/
+
+# Arquivos do sistema e editores
+.DS_Store
+.vscode/
