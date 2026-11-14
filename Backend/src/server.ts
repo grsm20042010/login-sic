@@ -1,20 +1,27 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
 
-dotenv.config();
+import { auth_router } from "./routes/auth.routes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // React Web (Vite)
+      "http://localhost", // APK Android (Capacitor)
+      "capacitor://localhost", // App iOS (Capacitor)
+    ],
+  }),
+);
 
-app.get('/', (req, res) => {
-  res.json({ mensagem: 'API do Login SIC rodando! AAAAAAAAAAAA' });
+app.use("/auth", auth_router);
+
+app.get("/", (req, res) => {
+  res.json({ mensagem: "API do SIC rodando!" });
 });
 
 app.listen(PORT, () => {
