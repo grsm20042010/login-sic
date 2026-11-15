@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import { auth_router } from "./routes/auth.routes";
+import { authentication } from "./middleware/auth";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,10 @@ app.use("/auth", auth_router);
 
 app.get("/", (req, res) => {
   res.json({ mensagem: "API do SIC rodando!" });
+});
+
+app.get("/painel", authentication, (req, res) => {
+  res.json({ mensagem: "painel de aluno ou prof :)" });
 });
 
 app.listen(PORT, () => {
