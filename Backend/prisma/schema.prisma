@@ -13,4 +13,14 @@ model User {
   email     String   @unique
   senha     String
   createdAt DateTime @default(now())
+  refreshTokens RefreshToken[] 
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid(7))
+  token     String   @unique
+  expiresAt DateTime
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
